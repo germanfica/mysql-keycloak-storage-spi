@@ -35,12 +35,14 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Additional dependencies -->
+		<!-- Driver -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
 		</dependency>
+
+		<!-- Additional dependencies -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
