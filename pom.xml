@@ -48,6 +48,13 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- Apache Commons Configuration -->
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-configuration2</artifactId>
 			<version>${commons-configuration2.version}</version>
@@ -56,11 +63,6 @@
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 			<version>${commons-beanutils.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-crypto</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 
 		<!-- Hibernate -->
