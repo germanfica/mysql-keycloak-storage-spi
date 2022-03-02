@@ -15,6 +15,7 @@
 		<mysql.version>8.0.28</mysql.version>
 		<lombok.version>1.18.22</lombok.version>
 		<commons-configuration2.version>2.7</commons-configuration2.version>
+		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 	</properties>
 
 	<dependencies>
@@ -39,6 +40,11 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-configuration2</artifactId>
 			<version>${commons-configuration2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${commons-beanutils.version}</version>
 		</dependency>
 	</dependencies>
 
