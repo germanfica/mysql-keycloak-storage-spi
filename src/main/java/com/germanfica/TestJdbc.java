@@ -70,11 +70,13 @@ public class TestJdbc {
 				.setProperty("hibernate.connection.password", config.getString("datasource.password"))
 				.setProperty("hibernate.dialect", config.getString("spring.jpa.database-platform"))
 				.setProperty("hibernate.show_sql", "true")
-				.addAnnotatedClass(User.class);
+				.addAnnotatedClass(com.germanfica.entity.User.class);
 
 		// read configuration and build session factory
+//		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+//				.applySettings(configuration.getProperties()).build();
 		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-				.applySettings(configuration.getProperties()).build();
+				.configure().build();
 
 		SessionFactory sessionFactory = null;
 
@@ -95,7 +97,7 @@ public class TestJdbc {
 
 		try {
 			User testEntity = new User();
-			testEntity.setUsername("albedo");
+			testEntity.setUsername("albedo2");
 			testEntity.setEmail("albedo@localhost");
 			testEntity.setFirstName("albedo");
 			testEntity.setLastName("h.");
