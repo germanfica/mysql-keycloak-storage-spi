@@ -6,9 +6,7 @@ import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.convert.DefaultListDelimiterHandler;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class TestJdbc {
 	public static void main( String[] args) throws SQLException, ConfigurationException {
@@ -27,9 +25,24 @@ public class TestJdbc {
 		String jdbcUrl = config.getString("datasource.url");
 		String user = config.getString("datasource.username");
 		String pass = config.getString("datasource.password");
-		
+
 		System.out.println("connecting ...");
 		Connection myConn = DriverManager.getConnection(jdbcUrl, user, pass);
 		System.out.println("connected");
+
+		// @Query("select s from Submission s where s.assignment.course.id = :courseId")
+		//findAll(0 ,2);
+		String customQuery = "SELECT first_name FROM user WHERE id=1";
+
+		Statement stmt = myConn.createStatement();
+		//CallableStatement cstmt = myConn.prepareCall(customQuery);
+		ResultSet resultSet = stmt.executeQuery(customQuery);
+
+		while (resultSet.next()) {
+			System.out.println(resultSet.getString("first_name"));;
+		}
+
+		myConn.close();
+		System.out.println("connection closed. :)");
 	}
 }
