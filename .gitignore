@@ -4,7 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-## Ignore properties ##
+### Sensitive Data ###
+src/main/resources/application.properties
 application.properties
 
 ### STS ###
