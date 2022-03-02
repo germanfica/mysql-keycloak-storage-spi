@@ -16,6 +16,7 @@
 		<lombok.version>1.18.22</lombok.version>
 		<commons-configuration2.version>2.7</commons-configuration2.version>
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
+		<spring.version>5.6.2</spring.version>
 	</properties>
 
 	<dependencies>
@@ -46,6 +47,12 @@
 			<artifactId>commons-beanutils</artifactId>
 			<version>${commons-beanutils.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
