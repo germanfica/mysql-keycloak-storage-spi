@@ -1,7 +1,5 @@
 package com.germanfica.entity;
 
-import java.time.LocalDate;
-
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,13 +29,4 @@ public class User  {
 
 	@Column(name="password")
 	private String password;
-	
-	@Column(name="birth_date")
-	private LocalDate birthDate;
-
-	private String city;
-
-	private String province;
-
-	private String address;
 }
