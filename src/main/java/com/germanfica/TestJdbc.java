@@ -64,11 +64,12 @@ public class TestJdbc {
 		// https://www.programcreek.com/java-api-examples/?api=org.hibernate.boot.registry.StandardServiceRegistryBuilder
 		// https://www.programcreek.com/java-api-examples/?code=robeio%2Frobe%2Frobe-master%2Frobe-hibernate%2Fsrc%2Ftest%2Fjava%2Fio%2Frobe%2Fhibernate%2FHibernateUtil.java
 		Configuration configuration = new Configuration()
-				.setProperty("hibernate.dialect", config.getString("spring.jpa.database-platform"))
 				.setProperty("hibernate.connection.driver_class", config.getString("datasource.driverClassName"))
 				.setProperty("hibernate.connection.url", config.getString("datasource.url"))
 				.setProperty("hibernate.connection.username", config.getString("datasource.username"))
 				.setProperty("hibernate.connection.password", config.getString("datasource.password"))
+				.setProperty("hibernate.dialect", config.getString("spring.jpa.database-platform"))
+				.setProperty("hibernate.show_sql", "true")
 				.addAnnotatedClass(User.class);
 
 		// read configuration and build session factory
