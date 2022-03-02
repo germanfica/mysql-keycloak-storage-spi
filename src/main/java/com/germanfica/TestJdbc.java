@@ -69,7 +69,7 @@ public class TestJdbc {
 				.setProperty("hibernate.connection.url", config.getString("datasource.url"))
 				.setProperty("hibernate.connection.username", config.getString("datasource.username"))
 				.setProperty("hibernate.connection.password", config.getString("datasource.password"))
-				.addClass(User.class);
+				.addAnnotatedClass(User.class);
 
 		// read configuration and build session factory
 		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
@@ -102,7 +102,7 @@ public class TestJdbc {
 
 			log.info("user: " + testEntity.getFirstName(), testEntity);
 
-			//session.persist(testEntity);
+			session.persist(testEntity);
 			tx.commit();
 		}
 		catch (Exception e) {
