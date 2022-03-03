@@ -149,6 +149,36 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<User> findByUsername(String username) {
-        return Optional.empty();
+        Optional<User> opt = Optional.empty();
+
+        // create hibernate session factory
+        HibernateFactory factory = new HibernateFactory();
+
+        // create session, open transaction and save test entity to db
+        Session session = factory.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        try {
+            log.info("entity username: " + username);
+
+            User user = session.createQuery("select u from User u where u.username = :username", User.class)
+                    .setParameter("username", username)
+                    .getSingleResult();
+            opt = Optional.ofNullable(user);
+
+            tx.commit();
+        }
+        catch (Exception e) {
+            tx.rollback();
+            log.error("cannot commit transaction", e);
+        }
+        finally {
+            session.close();
+        }
+
+        // clean up
+        factory.close();
+
+        return opt;
     }
 }
