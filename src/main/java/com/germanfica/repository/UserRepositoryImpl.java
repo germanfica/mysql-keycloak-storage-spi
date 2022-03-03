@@ -82,7 +82,49 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean existsById(Integer integer) {
-        return false;
+        Optional<Boolean> opt = Optional.empty();
+        //boolean exists = false;
+
+        // create hibernate session factory
+        HibernateFactory factory = new HibernateFactory();
+
+        // create session, open transaction and save test entity to db
+        Session session = factory.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        try {
+            log.info("entity by id: " + integer);
+
+            //https://stackoverflow.com/questions/221514/hibernate-check-if-object-exists
+//            exists = (Integer) session.createQuery("SELECT 1 from User u WHERE u.id = :id")
+//                    .setParameter("id", integer)
+//                    .uniqueResult() == 1;
+
+//            exists = (boolean) session.createQuery("SELECT true from User WHERE id = :id")
+//                    .setParameter("id", integer)
+//                    .uniqueResult();
+
+            opt = Optional.ofNullable(
+                    (Boolean) session.createQuery("SELECT true from User WHERE id = :id")
+                    .setParameter("id", integer)
+                    .uniqueResult()
+            );
+
+            tx.commit();
+        }
+        catch (Exception e) {
+            tx.rollback();
+            log.error("cannot commit transaction", e);
+        }
+        finally {
+            session.close();
+        }
+
+        // clean up
+        factory.close();
+
+        return !opt.isEmpty();
+        //return exists;
     }
 
     @Override
