@@ -43,6 +43,11 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public <S extends User> Iterable<S> saveAll(Iterable<S> entities) {
+        //https://stackoverflow.com/questions/452859/inserting-multiple-rows-in-a-single-sql-query
+        //https://stackoverflow.com/questions/39077490/hibernate-save-multiple-objects-in-one-transaction
+        //https://stackoverflow.com/questions/12034055/how-to-save-multiple-entities-in-hibernate
+        //I honestly don't know how to implement it :') I don't need it at the moment.
+        log.error("[ NOT IMPLEMENTED ]");
         return null;
     }
 
@@ -289,17 +294,17 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void deleteAllById(Iterable<? extends Integer> integers) {
-
+        log.error("[ NOT IMPLEMENTED ]");
     }
 
     @Override
     public void deleteAll(Iterable<? extends User> entities) {
-
+        log.error("[ NOT IMPLEMENTED ]");
     }
 
     @Override
     public void deleteAll() {
-
+        log.error("[ NOT IMPLEMENTED ]");
     }
 
     @Override
