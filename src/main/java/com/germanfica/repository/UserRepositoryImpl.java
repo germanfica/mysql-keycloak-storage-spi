@@ -78,7 +78,29 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void delete(User entity) {
+        // create hibernate session factory
+        HibernateFactory factory = new HibernateFactory();
 
+        // create session, open transaction and save test entity to db
+        Session session = factory.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        try {
+            log.info("entity: " + entity.toString(), entity);
+
+            session.delete(entity);
+            tx.commit();
+        }
+        catch (Exception e) {
+            tx.rollback();
+            log.error("cannot commit transaction", e);
+        }
+        finally {
+            session.close();
+        }
+
+        // clean up
+        factory.close();
     }
 
     @Override
@@ -95,35 +117,4 @@ public class UserRepositoryImpl implements UserRepository {
     public void deleteAll() {
 
     }
-
-
-
-//
-//    public void delete(User user) {
-//        // create hibernate session factory
-//        HibernateFactory factory = new HibernateFactory();
-//
-//        // create session, open transaction and save test entity to db
-//        Session session = factory.getSessionFactory().openSession();
-//        Transaction tx = session.beginTransaction();
-//
-//        try {
-//            log.info("user: " + user.getFirstName(), user.toString());
-//
-//            session.delete(user);
-//            tx.commit();
-//        }
-//        catch (Exception e) {
-//            tx.rollback();
-//            log.error("cannot commit transaction", e);
-//        }
-//        finally {
-//            session.close();
-//        }
-//
-//        // clean up
-//        factory.close();
-//    }
-
-
 }
