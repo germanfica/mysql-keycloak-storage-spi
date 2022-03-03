@@ -48,7 +48,36 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<User> findById(Integer integer) {
-        return Optional.empty();
+        Optional<User> opt = Optional.empty();
+
+        // create hibernate session factory
+        HibernateFactory factory = new HibernateFactory();
+
+        // create session, open transaction and save test entity to db
+        Session session = factory.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        try {
+            log.info("entity id: " + integer);
+
+            User user = session.get(User.class, integer);
+            // https://www.baeldung.com/java-optional
+            opt = Optional.ofNullable(user);
+
+            tx.commit();
+        }
+        catch (Exception e) {
+            tx.rollback();
+            log.error("cannot commit transaction", e);
+        }
+        finally {
+            session.close();
+        }
+
+        // clean up
+        factory.close();
+
+        return opt;
     }
 
     @Override
