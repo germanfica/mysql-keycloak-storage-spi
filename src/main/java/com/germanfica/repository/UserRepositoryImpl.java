@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.util.Optional;
+import java.util.*;
 
 public class UserRepositoryImpl implements UserRepository {
     private static final Logger log = LogManager.getLogger(UserRepositoryImpl.class);
@@ -87,7 +87,35 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Iterable<User> findAll() {
-        return null;
+        //Set<User> users = new LinkedHashSet();
+        //https://www.geeksforgeeks.org/initializing-a-list-in-java/
+        List<User> users = new LinkedList();
+
+        // create hibernate session factory
+        HibernateFactory factory = new HibernateFactory();
+
+        // create session, open transaction and save test entity to db
+        Session session = factory.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        try {
+            log.info("findAll() " + User.class);
+            users = session.createQuery("SELECT u FROM User u", User.class).getResultList();
+
+            tx.commit();
+        }
+        catch (Exception e) {
+            tx.rollback();
+            log.error("cannot commit transaction", e);
+        }
+        finally {
+            session.close();
+        }
+
+        // clean up
+        factory.close();
+
+        return users;
     }
 
     @Override
