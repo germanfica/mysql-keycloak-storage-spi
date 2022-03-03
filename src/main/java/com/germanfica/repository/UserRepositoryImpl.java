@@ -146,7 +146,7 @@ public class UserRepositoryImpl implements UserRepository {
             // getSingleResult(), getResultList() for get.
             // Pseudo example: delete from user where id=?
             // An HQL DELETE statement
-            session.createQuery("delete User u where u.id = :id")
+            session.createQuery("DELETE User WHERE id = :id")
                     .setParameter("id", integer).executeUpdate();
 
             tx.commit();
