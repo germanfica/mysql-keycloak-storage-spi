@@ -1,4 +1,4 @@
-package com.germanfica.provider;
+package com.germanfica;
 
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;

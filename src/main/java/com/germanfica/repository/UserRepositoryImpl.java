@@ -1,7 +1,7 @@
 package com.germanfica.repository;
 
 import com.germanfica.entity.User;
-import com.germanfica.provider.HibernateFactory;
+import com.germanfica.HibernateFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
