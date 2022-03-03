@@ -75,6 +75,9 @@ public class TestJdbc {
 		// read configuration and build session factory
 //		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
 //				.applySettings(configuration.getProperties()).build();
+//		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+//				.configure()
+//				.applySettings(configuration.getProperties()).build();
 		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
 				.configure().build();
 
