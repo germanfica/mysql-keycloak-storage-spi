@@ -120,7 +120,36 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Iterable<User> findAllById(Iterable<Integer> integers) {
-        return null;
+        List<User> users = new LinkedList();
+
+        // create hibernate session factory
+        HibernateFactory factory = new HibernateFactory();
+
+        // create session, open transaction and save test entity to db
+        Session session = factory.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        try {
+            log.info("findAll() " + User.class);
+            // https://thorben-janssen.com/fetch-multiple-entities-id-hibernate/
+            users = session.createQuery("SELECT u FROM User u WHERE u.id IN :ids", User.class)
+                    .setParameter("ids", integers)
+                    .getResultList();
+
+            tx.commit();
+        }
+        catch (Exception e) {
+            tx.rollback();
+            log.error("cannot commit transaction", e);
+        }
+        finally {
+            session.close();
+        }
+
+        // clean up
+        factory.close();
+
+        return users;
     }
 
     @Override
