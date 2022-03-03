@@ -125,7 +125,33 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public long count() {
-        return 0;
+        long countNumber = -1;
+        // create hibernate session factory
+        HibernateFactory factory = new HibernateFactory();
+
+        // create session, open transaction and save test entity to db
+        Session session = factory.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        try {
+            log.info("count() " + User.class);
+            //https://stackoverflow.com/questions/17383697/how-to-write-a-query-in-hibernate-for-count
+            countNumber = (long) session.createQuery("SELECT count(*) FROM User").uniqueResult();
+
+            tx.commit();
+        }
+        catch (Exception e) {
+            tx.rollback();
+            log.error("cannot commit transaction", e);
+        }
+        finally {
+            session.close();
+        }
+
+        // clean up
+        factory.close();
+
+        return countNumber;
     }
 
     @Override
