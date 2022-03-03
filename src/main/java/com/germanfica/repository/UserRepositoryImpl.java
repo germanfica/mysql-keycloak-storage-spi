@@ -130,7 +130,37 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void deleteById(Integer integer) {
+        // create hibernate session factory
+        HibernateFactory factory = new HibernateFactory();
 
+        // create session, open transaction and save test entity to db
+        Session session = factory.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        try {
+            log.info("deleting user with id: " + integer);
+
+            // https://stackoverflow.com/questions/28439141/update-delete-queries-cannot-be-typed-jpa
+            // Be careful here, don't forget to add the "executeUpdate()" after the "setParameter()"
+            // executeUpdate() for insert, delete and update.
+            // getSingleResult(), getResultList() for get.
+            // Pseudo example: delete from user where id=?
+            // An HQL DELETE statement
+            session.createQuery("delete User u where u.id = :id")
+                    .setParameter("id", integer).executeUpdate();
+
+            tx.commit();
+        }
+        catch (Exception e) {
+            tx.rollback();
+            log.error("cannot commit transaction", e);
+        }
+        finally {
+            session.close();
+        }
+
+        // clean up
+        factory.close();
     }
 
     @Override
