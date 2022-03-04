@@ -2,7 +2,7 @@
 
 ## How to build a jar file that includes its dependencies?
 
-You should include your project dependencies in your `.jar` file. This is necessary otherwise your `.jar` will not be able to make use of those dependencies it needs and will give an error.
+You should include your project dependencies in your `.jar` file. Basically you need a fat `.jar` file. This is necessary otherwise your `.jar` will not be able to make use of those dependencies it needs and will give an error.
 
 Here is one of the ways to do it. You should add the following plugin to your `pom.xml` file:
 
