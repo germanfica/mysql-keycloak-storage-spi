@@ -1,5 +1,54 @@
 # A custom Keycloak User Storage Provider
 
+## How to build a jar file that includes its dependencies?
+
+You should include your project dependencies in your `.jar` file. This is necessary otherwise your `.jar` will not be able to make use of those dependencies it needs and will give an error.
+
+Here is one of the ways to do it. You should add the following plugin to your `pom.xml` file:
+
+```xml
+<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-assembly-plugin</artifactId>
+	<version>3.3.0</version>
+	<executions>
+		<execution>
+			<id>make-assembly</id>
+			<phase>package</phase>
+			<goals>
+				<goal>single</goal>
+			</goals>
+		</execution>
+	</executions>
+	<configuration>
+		<descriptorRefs>
+			<descriptorRef>jar-with-dependencies</descriptorRef>
+		</descriptorRefs>
+	</configuration>
+</plugin>
+```
+
+Maven Assembly Plugin will include all the `pom.xml` dependencies to your `.jar` file.
+
+Then you must run the following maven goal:
+
+```
+mvn clean install package assembly:single
+```
+
+Alternatively you can also run:
+
+```
+mvn clean compile assembly:single
+```
+
+Once you have generated the `.jar` with all its dependencies you must paste it in the `/standalone/deployments` Keycloak directory. And that's it!
+
+Source:
+- https://stackoverflow.com/a/1729094
+- https://stackoverflow.com/a/574650
+
 ## Configurations
 
 Create `src/main/resources/application.properties`
