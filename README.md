@@ -48,6 +48,7 @@ Once you have generated the `.jar` with all its dependencies you must paste it i
 Source:
 - https://stackoverflow.com/a/1729094
 - https://stackoverflow.com/a/574650
+- https://stackoverflow.com/a/16222971
 
 ## Configurations
 
