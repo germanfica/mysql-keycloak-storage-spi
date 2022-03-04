@@ -9,8 +9,9 @@
 	<name>user-storage-spi</name>
 	<description>A custom Keycloak User Storage Provider project</description>
 	<properties>
-		<maven.compiler.release>11</maven.compiler.release>
-		<maven.compiler.version>3.10.0</maven.compiler.version>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+		<maven-compiler.version>3.10.0</maven-compiler.version>
 		<keycloak.version>17.0.0</keycloak.version>
 		<mysql.version>8.0.28</mysql.version>
 		<lombok.version>1.18.22</lombok.version>
@@ -84,7 +85,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>${maven.compiler.version}</version>
+					<version>${maven-compiler.version}</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
