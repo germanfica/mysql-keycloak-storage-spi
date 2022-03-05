@@ -7,8 +7,7 @@
     <Appenders>
         <!-- Console appender configuration -->
         <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout
-                    pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+            <PatternLayout disableAnsi="false" pattern="%highlight{%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=black, DEBUG=green bold, TRACE=blue}" />
         </Console>
     </Appenders>
     <Loggers>
