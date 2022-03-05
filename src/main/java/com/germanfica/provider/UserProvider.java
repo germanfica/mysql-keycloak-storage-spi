@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-//FIXME: Rename provider as the documentation expected
+//FIXED: Rename provider as the documentation expected
 // Provider factory classes must specify the concrete provider class
 // as a template parameter when implementing the UserStorageProviderFactory.
 // This is a must as the runtime will introspect this class to scan
@@ -30,7 +30,7 @@ import java.util.Optional;
 // the template parameter, it only considers if the name are the same.
 // Well that's what I'm thinking, is not much clear here in the docs:
 // https://www.keycloak.org/docs/latest/server_development/index.html#provider-interfaces
-public class UserStorageProviderImpl implements
+public class UserProvider implements
         UserStorageProvider,
         UserLookupProvider,
         CredentialInputValidator {
@@ -40,8 +40,8 @@ public class UserStorageProviderImpl implements
     ComponentModel componentModel;
     protected Map<String, UserModel> loadedUsers = new HashMap<>();
 
-    public UserStorageProviderImpl(KeycloakSession session, ComponentModel model,
-                                   UserRepository userRepository) {
+    public UserProvider(KeycloakSession session, ComponentModel model,
+                        UserRepository userRepository) {
         this.userRepository = userRepository;
         this.keycloakSession = session;
         this.componentModel = model;
