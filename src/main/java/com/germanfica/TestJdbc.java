@@ -55,7 +55,7 @@ public class TestJdbc {
 		//log.info("Id del username: "+userRepository.findByUsername("guillermina").get().getId());
 		//userRepository.findAll().forEach(user -> log.info("username: " + user.getUsername()));
 		//userRepository.deleteById(17);
-		//log.info(userRepository.count());
+		log.info("Users in the database: " + userRepository.count());
 		//userRepository.findAllById(ids).forEach(user -> log.info("Username: " + user.getUsername()));
 		//log.info("exists? " + userRepository.existsById(4));
 		
