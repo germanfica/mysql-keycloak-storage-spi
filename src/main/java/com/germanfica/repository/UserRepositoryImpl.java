@@ -2,16 +2,14 @@ package com.germanfica.repository;
 
 import com.germanfica.entity.User;
 import com.germanfica.HibernateFactory;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.jbosslog.JBossLog;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.*;
 
+@JBossLog
 public class UserRepositoryImpl implements UserRepository {
-    private static final Logger log = LogManager.getLogger(UserRepositoryImpl.class);
-
     @Override
     public <S extends User> S save(S entity) {
         // create hibernate session factory
@@ -22,7 +20,7 @@ public class UserRepositoryImpl implements UserRepository {
         Transaction tx = session.beginTransaction();
 
         try {
-            log.info("entity: " + entity.toString(), entity);
+            log.info("entity: " + entity.toString());
 
             session.persist(entity);
             tx.commit();
@@ -275,7 +273,7 @@ public class UserRepositoryImpl implements UserRepository {
         Transaction tx = session.beginTransaction();
 
         try {
-            log.info("entity: " + entity.toString(), entity);
+            log.info("entity: " + entity.toString());
 
             session.delete(entity);
             tx.commit();

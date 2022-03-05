@@ -2,17 +2,17 @@ package com.germanfica;
 
 import com.germanfica.entity.User;
 import com.germanfica.repository.UserRepositoryImpl;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.jbosslog.JBossLog;
 import org.hibernate.HibernateException;
 
 import java.sql.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@JBossLog
 public class TestHibernate {
 	//https://logging.apache.org/log4j/2.x/manual/migration.html
-	private static final Logger log = LogManager.getLogger(TestHibernate.class);
+	//private static final Logger log = LogManager.getLogger(TestHibernate.class);
 
 	public static void main( String[] args) throws SQLException, HibernateException {
 		// == hibernate  ==
