@@ -16,6 +16,7 @@ import org.keycloak.storage.user.UserLookupProvider;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class UserStorageProviderImpl implements
         UserStorageProvider,
@@ -51,9 +52,14 @@ public class UserStorageProviderImpl implements
     public UserModel getUserByUsername(String username, RealmModel realm) {
         UserModel adapter = loadedUsers.get(username);
         if (adapter == null) {
-            User user = userRepository.findByUsername(username).get();
-            if (user != null) {
-                adapter = createAdapter(realm, username);
+            //FIXED: javax.persistence.NoResultException error
+            // ERROR [com.germanfica.repository.UserRepositoryImpl] (default task-3) cannot commit transaction: javax.persistence.NoResultException: No entity found for query
+            // at deployment.user-storage-spi.jar//com.germanfica.repository.UserRepositoryImpl.findByUsername(UserRepositoryImpl.java:326)
+            // https://stackoverflow.com/a/35850043
+            // the best way to verify nulls in UserRepository is with an Optional, so let's take advantage of that
+            Optional<User> opt = userRepository.findByUsername(username);
+            if (!opt.isEmpty()){
+                adapter = createAdapter(realm, opt.get());
                 loadedUsers.put(username, adapter);
             }
         }
@@ -97,11 +103,11 @@ public class UserStorageProviderImpl implements
         }
     }
 
-    private UserModel createAdapter(RealmModel realm, String username) {
+    private UserModel createAdapter(RealmModel realm, User user) {
         return new AbstractUserAdapter(keycloakSession, realm, componentModel) {
             @Override
             public String getUsername() {
-                return username;
+                return user.getUsername();
             }
         };
     }
