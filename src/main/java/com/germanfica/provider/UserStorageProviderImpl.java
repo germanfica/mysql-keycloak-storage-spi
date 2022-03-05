@@ -18,6 +18,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+//FIXME: Rename provider as the documentation expected
+// Provider factory classes must specify the concrete provider class
+// as a template parameter when implementing the UserStorageProviderFactory.
+// This is a must as the runtime will introspect this class to scan
+// for its capabilities (the other interfaces it implements).
+// So for example, if your provider class is named FileProvider,
+// then the factory class should look like this: FileProviderFactory.
+// So what is a template argument?
+// Basically, when the compiler tries to find a template to match
+// the template parameter, it only considers if the name are the same.
+// Well that's what I'm thinking, is not much clear here in the docs:
+// https://www.keycloak.org/docs/latest/server_development/index.html#provider-interfaces
 public class UserStorageProviderImpl implements
         UserStorageProvider,
         UserLookupProvider,
