@@ -73,6 +73,13 @@ Create `src/main/resources/hibernate.cfg.xml`
         <property name="connection.password">hibernate1</property>
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.timeout">1800</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.acquire_increment">3</property>
+        <property name="hibernate.c3p0.idle_test_period">1</property>
+        <property name="hibernate.c3p0.initialPoolSize">5</property>
 
         <mapping resource="example01/Teacher.hbm.xml"/>
         <mapping class="example01.Teacher"/>
