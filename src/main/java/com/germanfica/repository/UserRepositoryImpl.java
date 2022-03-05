@@ -323,7 +323,12 @@ public class UserRepositoryImpl implements UserRepository {
 
             User user = session.createQuery("select u from User u where u.username = :username", User.class)
                     .setParameter("username", username)
-                    .getSingleResult();
+                    //FIXME: javax.persistence.NoResultException error
+                    // ERROR [com.germanfica.repository.UserRepositoryImpl] (default task-3) cannot commit transaction: javax.persistence.NoResultException: No entity found for query
+                    // at deployment.user-storage-spi.jar//com.germanfica.repository.UserRepositoryImpl.findByUsername(UserRepositoryImpl.java:326)
+                    //.getSingleResult();
+                    .uniqueResult();
+
             opt = Optional.ofNullable(user);
 
             tx.commit();
