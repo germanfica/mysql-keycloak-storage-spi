@@ -92,8 +92,10 @@ public class UserStorageProviderImpl implements
     public boolean isConfiguredFor(RealmModel realm, UserModel user, String credentialType) {
 
         try {
-            //FIXME: use opt.isEmpty() here in case of a null password!!!
-            String password = userRepository.findByUsername(user.getUsername()).get().getPassword();
+            //FIXED: use opt.isEmpty() here in case of a null password!!!
+            Optional<User> opt = userRepository.findByUsername(user.getUsername());
+            String password = null;
+            if(!opt.isEmpty()) password = opt.get().getPassword();
             return credentialType.equals(PasswordCredentialModel.TYPE) && password != null;
         } catch (Exception e) {
             e.printStackTrace();
