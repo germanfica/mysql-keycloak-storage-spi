@@ -10,9 +10,9 @@ import java.sql.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class TestJdbc {
+public class TestHibernate {
 	//https://logging.apache.org/log4j/2.x/manual/migration.html
-	private static final Logger log = LogManager.getLogger(TestJdbc.class);
+	private static final Logger log = LogManager.getLogger(TestHibernate.class);
 
 	public static void main( String[] args) throws SQLException, HibernateException {
 		// == hibernate  ==
