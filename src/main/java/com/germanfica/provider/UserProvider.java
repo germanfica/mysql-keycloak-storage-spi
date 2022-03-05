@@ -157,6 +157,21 @@ public class UserProvider implements
             public String getUsername() {
                 return user.getUsername();
             }
+
+            @Override
+            public String getEmail() {
+                return user.getEmail();
+            }
+
+            @Override
+            public String getFirstName() {
+                return user.getFirstName();
+            }
+
+            @Override
+            public String getLastName() {
+                return user.getLastName();
+            }
         };
 
         log.warn("# Adaptador creado: " + DtoUtil.convertToDto(adpt));
