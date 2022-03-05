@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Extra logging related to initialization of Log4j.
  Set to debug or trace if log4j initialization is failing. -->
+<!-- https://logging.apache.org/log4j/2.x/manual/layouts.html -->
+<!-- https://stackoverflow.com/a/22030994 -->
 <Configuration status="warn">
     <Appenders>
         <!-- Console appender configuration -->
