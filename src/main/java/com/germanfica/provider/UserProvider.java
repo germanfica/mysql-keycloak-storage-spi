@@ -151,11 +151,16 @@ public class UserProvider implements
         log.warn("Creando adapter...");
         log.warn("realm: " + realm);
         log.warn("user: " + DtoUtil.convertToDto(user));
-        return new AbstractUserAdapter(keycloakSession, realm, componentModel) {
+
+        AbstractUserAdapter adpt = new AbstractUserAdapter(keycloakSession, realm, componentModel) {
             @Override
             public String getUsername() {
                 return user.getUsername();
             }
         };
+
+        log.warn("# Adaptador creado: " + DtoUtil.convertToDto(adpt));
+
+        return adpt;
     }
 }
