@@ -75,6 +75,7 @@
 			<scope>provided</scope> <!-- this excludes this dependence -->
 		</dependency>
 
+		<!-- http://www.javabyexamples.com/lombok-log4j-slf4j-and-other-log-annotations -->
 		<!-- Log4j library -->
 		<!-- <dependency>
 			<groupId>org.apache.logging.log4j</groupId>
