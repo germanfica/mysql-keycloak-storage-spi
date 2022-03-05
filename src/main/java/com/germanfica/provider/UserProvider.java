@@ -93,14 +93,20 @@ public class UserProvider implements
     }
 
     @Override
-    public UserModel getUserById(String id, RealmModel realm) {
+    public UserModel getUserById(RealmModel realm, String id) {
         StorageId storageId = new StorageId(id);
         String username = storageId.getExternalId();
         return getUserByUsername(username, realm);
     }
 
     @Override
-    public UserModel getUserByUsername(String username, RealmModel realm) {
+    @Deprecated
+    public UserModel getUserById(String id, RealmModel realm) {
+        return null;
+    }
+
+    @Override
+    public UserModel getUserByUsername(RealmModel realm, String username) {
         UserModel adapter = loadedUsers.get(username);
         if (adapter == null) {
             //FIXED: javax.persistence.NoResultException error
@@ -118,6 +124,13 @@ public class UserProvider implements
     }
 
     @Override
+    @Deprecated
+    public UserModel getUserByUsername(String username, RealmModel realm) {
+        return null;
+    }
+
+    @Override
+    @Deprecated
     public UserModel getUserByEmail(String email, RealmModel realm) {
         return null;
     }
