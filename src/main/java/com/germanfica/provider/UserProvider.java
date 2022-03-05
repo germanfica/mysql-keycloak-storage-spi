@@ -34,12 +34,13 @@ public class UserProvider implements
         UserStorageProvider,
         UserLookupProvider,
         CredentialInputValidator {
-
+    // == fields ==
+    private KeycloakSession keycloakSession;
+    private ComponentModel componentModel;
     private UserRepository userRepository;
-    KeycloakSession keycloakSession;
-    ComponentModel componentModel;
     protected Map<String, UserModel> loadedUsers = new HashMap<>();
 
+    // == constructors ==
     public UserProvider(KeycloakSession session, ComponentModel model,
                         UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -47,42 +48,7 @@ public class UserProvider implements
         this.componentModel = model;
     }
 
-    @Override
-    public void close() {
-
-    }
-
-
-    @Override
-    public UserModel getUserById(String id, RealmModel realm) {
-        StorageId storageId = new StorageId(id);
-        String username = storageId.getExternalId();
-        return getUserByUsername(username, realm);
-    }
-
-    @Override
-    public UserModel getUserByUsername(String username, RealmModel realm) {
-        UserModel adapter = loadedUsers.get(username);
-        if (adapter == null) {
-            //FIXED: javax.persistence.NoResultException error
-            // ERROR [com.germanfica.repository.UserRepositoryImpl] (default task-3) cannot commit transaction: javax.persistence.NoResultException: No entity found for query
-            // at deployment.user-storage-spi.jar//com.germanfica.repository.UserRepositoryImpl.findByUsername(UserRepositoryImpl.java:326)
-            // https://stackoverflow.com/a/35850043
-            // the best way to verify nulls in UserRepository is with an Optional, so let's take advantage of that
-            Optional<User> opt = userRepository.findByUsername(username);
-            if (!opt.isEmpty()){
-                adapter = createAdapter(realm, opt.get());
-                loadedUsers.put(username, adapter);
-            }
-        }
-        return adapter;
-    }
-
-    @Override
-    public UserModel getUserByEmail(String email, RealmModel realm) {
-        return null;
-    }
-
+    // == methods ==
     @Override
     public boolean supportsCredentialType(String credentialType) {
         return credentialType.equals(PasswordCredentialModel.TYPE);
@@ -119,6 +85,41 @@ public class UserProvider implements
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public void close() {
+
+    }
+
+    @Override
+    public UserModel getUserById(String id, RealmModel realm) {
+        StorageId storageId = new StorageId(id);
+        String username = storageId.getExternalId();
+        return getUserByUsername(username, realm);
+    }
+
+    @Override
+    public UserModel getUserByUsername(String username, RealmModel realm) {
+        UserModel adapter = loadedUsers.get(username);
+        if (adapter == null) {
+            //FIXED: javax.persistence.NoResultException error
+            // ERROR [com.germanfica.repository.UserRepositoryImpl] (default task-3) cannot commit transaction: javax.persistence.NoResultException: No entity found for query
+            // at deployment.user-storage-spi.jar//com.germanfica.repository.UserRepositoryImpl.findByUsername(UserRepositoryImpl.java:326)
+            // https://stackoverflow.com/a/35850043
+            // the best way to verify nulls in UserRepository is with an Optional, so let's take advantage of that
+            Optional<User> opt = userRepository.findByUsername(username);
+            if (!opt.isEmpty()){
+                adapter = createAdapter(realm, opt.get());
+                loadedUsers.put(username, adapter);
+            }
+        }
+        return adapter;
+    }
+
+    @Override
+    public UserModel getUserByEmail(String email, RealmModel realm) {
+        return null;
     }
 
     private UserModel createAdapter(RealmModel realm, User user) {
