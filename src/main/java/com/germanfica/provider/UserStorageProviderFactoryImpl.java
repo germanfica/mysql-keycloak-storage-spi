@@ -6,7 +6,7 @@ import org.keycloak.models.KeycloakSession;
 import org.keycloak.storage.UserStorageProviderFactory;
 
 public class UserStorageProviderFactoryImpl implements UserStorageProviderFactory<UserStorageProviderImpl> {
-    public static final String PROVIDER_NAME = "mysql-user-store";
+    public static final String PROVIDER_NAME = "user-storage-provider-impl";
 
     @Override
     public UserStorageProviderImpl create(KeycloakSession session, ComponentModel model) {
