@@ -2,6 +2,8 @@ package com.germanfica.provider;
 
 import com.germanfica.entity.User;
 import com.germanfica.repository.UserRepository;
+import com.germanfica.util.DtoUtil;
+import lombok.extern.jbosslog.JBossLog;
 import org.keycloak.component.ComponentModel;
 import org.keycloak.credential.CredentialInput;
 import org.keycloak.credential.CredentialInputValidator;
@@ -30,6 +32,7 @@ import java.util.Optional;
 // the template parameter, it only considers if the name are the same.
 // Well that's what I'm thinking, is not much clear here in the docs:
 // https://www.keycloak.org/docs/latest/server_development/index.html#provider-interfaces
+@JBossLog
 public class UserProvider implements
         UserStorageProvider,
         UserLookupProvider,
@@ -102,6 +105,9 @@ public class UserProvider implements
     @Override
     @Deprecated
     public UserModel getUserById(String id, RealmModel realm) {
+        log.warn("Esta llamando al getUserById @Deprecated!!!!");
+        log.warn("id: " + id);
+        log.warn("realm: " + realm);
         return this.getUserById(realm, id);
     }
 
@@ -126,16 +132,25 @@ public class UserProvider implements
     @Override
     @Deprecated
     public UserModel getUserByUsername(String username, RealmModel realm) {
+        log.warn("Esta llamando al getUserByUsername @Deprecated!!!!");
+        log.warn("username: " + username);
+        log.warn("realm: " + realm);
         return getUserByUsername(realm,username);
     }
 
     @Override
     @Deprecated
     public UserModel getUserByEmail(String email, RealmModel realm) {
+        log.warn("Esta llamando al getUserByEmail @Deprecated!!!!");
+        log.warn("username: " + email);
+        log.warn("realm: " + realm);
         return null;
     }
 
     private UserModel createAdapter(RealmModel realm, User user) {
+        log.warn("Creando adapter...");
+        log.warn("realm: " + realm);
+        log.warn("user: " + DtoUtil.convertToDto(user));
         return new AbstractUserAdapter(keycloakSession, realm, componentModel) {
             @Override
             public String getUsername() {
