@@ -102,7 +102,7 @@ public class UserProvider implements
     @Override
     @Deprecated
     public UserModel getUserById(String id, RealmModel realm) {
-        return null;
+        return this.getUserById(realm, id);
     }
 
     @Override
@@ -126,7 +126,7 @@ public class UserProvider implements
     @Override
     @Deprecated
     public UserModel getUserByUsername(String username, RealmModel realm) {
-        return null;
+        return getUserByUsername(realm,username);
     }
 
     @Override
