@@ -94,8 +94,11 @@ public class UserStorageProviderImpl implements
         if (!supportsCredentialType(credentialInput.getType())) return false;
 
         try {
-            String password = userRepository.findByUsername(user.getUsername()).get().getPassword();
-            if (password == null) return false;
+            Optional<User> opt = userRepository.findByUsername(user.getUsername()); //FIXED: ERROR [stderr] (default task-2) java.util.NoSuchElementException: No value present
+            String password = null; // password null by default
+            if(opt.isEmpty()) return false; // (1) check if request is empty
+            if(!opt.isEmpty()) password = opt.get().getPassword(); // get the password before checking
+            if (password == null) return false; // (2) check if password is empty
             return password.equals(credentialInput.getChallengeResponse());
         } catch (Exception e) {
             e.printStackTrace();
