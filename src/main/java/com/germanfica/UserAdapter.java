@@ -8,8 +8,11 @@ import org.keycloak.models.*;
 import org.keycloak.storage.StorageId;
 import org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @JBossLog
 public class UserAdapter extends AbstractUserAdapterFederatedStorage {
@@ -28,7 +31,7 @@ public class UserAdapter extends AbstractUserAdapterFederatedStorage {
         this.keycloakId = StorageId.keycloakId(storageProviderModel, String.valueOf(user.getId()));
     }
 
-    // == methods ==
+    // == user-related methods ==
     @Override
     public String getId() {
         return keycloakId;
@@ -89,5 +92,31 @@ public class UserAdapter extends AbstractUserAdapterFederatedStorage {
         log.warn("ALL THE ATTRIBUTES: " + attributes);
 
         return attributes;
+    }
+
+    // == role-related methods ==
+    /**
+     * Gets role mappings from federated storage and automatically appends default roles.
+     * Also calls getRoleMappingsInternal() method
+     * to pull role mappings from provider.  Implementors can override that method
+     *
+     * @return
+     */
+    @Override
+    public Set<RoleModel> getRoleMappings() {
+        Set<RoleModel> set = new HashSet<>(getFederatedRoleMappings());
+        if (appendDefaultRolesToRoleMappings()) set.addAll(realm.getDefaultRole().getCompositesStream().collect(Collectors.toSet()));
+
+        RoleModel adminRole = session.roles().getRealmRole(realm, "realm-admin"); // it works
+        //RoleModel teacherRole = session.roles().getRealmRole(realm, "realm-teacher"); // it works
+        //RoleModel studentRole = session.roles().getRealmRole(realm, "realm-student"); // it works
+        //log.warn("admin role: " + DtoUtils.convertToDto(adminRole));
+        //log.warn("teacher role: " + DtoUtils.convertToDto(teacherRole));
+        //log.warn("student role: " + DtoUtils.convertToDto(studentRole));
+
+        set.add(adminRole); // add the admin realm role
+
+        set.addAll(getRoleMappingsInternal());
+        return set;
     }
 }
