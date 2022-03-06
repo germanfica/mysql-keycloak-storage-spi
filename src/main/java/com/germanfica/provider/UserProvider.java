@@ -3,7 +3,7 @@ package com.germanfica.provider;
 import com.germanfica.UserAdapter;
 import com.germanfica.entity.User;
 import com.germanfica.repository.UserRepository;
-import com.germanfica.util.DtoUtil;
+import com.germanfica.util.DtoUtils;
 import lombok.extern.jbosslog.JBossLog;
 import org.keycloak.component.ComponentModel;
 import org.keycloak.credential.CredentialInput;
@@ -167,11 +167,11 @@ public class UserProvider implements
     private UserModel createAdapter(RealmModel realm, User user) {
         log.warn("Creando adapter...");
         log.warn("realm: " + realm);
-        log.warn("user: " + DtoUtil.convertToDto(user));
+        log.warn("user: " + DtoUtils.convertToDto(user));
 
         AbstractUserAdapterFederatedStorage adpt = new UserAdapter(this.keycloakSession, realm, this.componentModel, user);
 
-        log.warn("# Adaptador creado: " + DtoUtil.convertToDto(adpt));
+        log.warn("# Adaptador creado: " + DtoUtils.convertToDto(adpt));
 
         return adpt;
     }

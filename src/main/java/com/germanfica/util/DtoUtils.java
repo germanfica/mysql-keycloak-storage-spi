@@ -15,7 +15,7 @@ import java.util.Set;
  * Disclaimer: This class is for testing and data representation only. I do not recommend using it in production.
  * You can delete this class.
  */
-public class DtoUtil {
+public class DtoUtils {
     public static final Set<UserDto> convertToDto(Iterable<User> users) {
         Set<UserDto> usersDto = new HashSet<>();
 
