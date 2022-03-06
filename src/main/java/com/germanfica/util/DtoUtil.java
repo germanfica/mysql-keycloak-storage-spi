@@ -1,8 +1,10 @@
 package com.germanfica.util;
 
 import com.germanfica.dto.AbstractUserAdapterDto;
+import com.germanfica.dto.RoleModelDto;
 import com.germanfica.dto.UserDto;
 import com.germanfica.entity.User;
+import org.keycloak.models.RoleModel;
 import org.keycloak.storage.adapter.AbstractUserAdapter;
 import org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage;
 
@@ -60,6 +62,19 @@ public class DtoUtil {
                 abstractUserAdapter.getRequiredActions(),
                 abstractUserAdapter.getRoleMappings(),
                 abstractUserAdapter.getServiceAccountClientLink()
+        );
+    }
+
+    public static final RoleModelDto convertToDto(RoleModel roleModel) {
+        return new RoleModelDto(
+                roleModel.getAttributes(),
+                roleModel.getComposites(),
+                roleModel.getCompositesStream(),
+                roleModel.getContainer(),
+                roleModel.getContainerId(),
+                roleModel.getDescription(),
+                roleModel.getId(),
+                roleModel.getName()
         );
     }
 }
