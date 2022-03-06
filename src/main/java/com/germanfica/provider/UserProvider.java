@@ -97,9 +97,17 @@ public class UserProvider implements
 
     @Override
     public UserModel getUserById(RealmModel realm, String id) {
+        log.warn("Esta llamando al getUserById &&&&&&&&&&&&&&&&&&&&&");
+        log.warn("id: " + id);
+        log.warn("realm: " + realm);
         StorageId storageId = new StorageId(id);
         String username = storageId.getExternalId();
-        return getUserByUsername(username, realm);
+
+
+        log.error("storageId: " + storageId);
+        log.error("username: " + username);
+
+        return getUserByUsername(username, realm); //FIXME: Fix the get user by id. The user id is not the username. THIS IS PRETTY BAD
     }
 
     @Override
