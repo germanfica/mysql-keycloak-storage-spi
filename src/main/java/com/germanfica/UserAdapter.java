@@ -1,11 +1,17 @@
 package com.germanfica;
 
 import com.germanfica.entity.User;
+import lombok.extern.jbosslog.JBossLog;
+import org.keycloak.common.util.MultivaluedHashMap;
 import org.keycloak.component.ComponentModel;
 import org.keycloak.models.*;
 import org.keycloak.storage.StorageId;
 import org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage;
 
+import java.util.List;
+import java.util.Map;
+
+@JBossLog
 public class UserAdapter extends AbstractUserAdapterFederatedStorage {
     // == fields ==
     private final User user;
@@ -66,5 +72,22 @@ public class UserAdapter extends AbstractUserAdapterFederatedStorage {
     @Override
     public void setLastName(String lastName) {
         user.setLastName(lastName);
+    }
+
+    @Override
+    public Map<String, List<String>> getAttributes() {
+        log.error("getAttributes ;))");
+        //MultivaluedHashMap<String, String> attributes = getFederatedStorage().getAttributes(realm, this.getId());
+        MultivaluedHashMap<String, String> attributes = new MultivaluedHashMap<>();
+        if (attributes == null) attributes = new MultivaluedHashMap<>();
+
+        // add user info
+        attributes.add(UserModel.FIRST_NAME, user.getFirstName());
+        attributes.add(UserModel.LAST_NAME, user.getLastName());
+        attributes.add(UserModel.EMAIL, user.getEmail());
+        attributes.add(UserModel.USERNAME, getUsername());
+        log.warn("ALL THE ATTRIBUTES: " + attributes);
+
+        return attributes;
     }
 }
