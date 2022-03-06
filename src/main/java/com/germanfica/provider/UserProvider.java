@@ -1,5 +1,6 @@
 package com.germanfica.provider;
 
+import com.germanfica.UserAdapter;
 import com.germanfica.entity.User;
 import com.germanfica.repository.UserRepository;
 import com.germanfica.util.DtoUtil;
@@ -13,7 +14,7 @@ import org.keycloak.models.UserModel;
 import org.keycloak.models.credential.PasswordCredentialModel;
 import org.keycloak.storage.StorageId;
 import org.keycloak.storage.UserStorageProvider;
-import org.keycloak.storage.adapter.AbstractUserAdapter;
+import org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage;
 import org.keycloak.storage.user.UserLookupProvider;
 
 import java.util.HashMap;
@@ -168,27 +169,7 @@ public class UserProvider implements
         log.warn("realm: " + realm);
         log.warn("user: " + DtoUtil.convertToDto(user));
 
-        AbstractUserAdapter adpt = new AbstractUserAdapter(keycloakSession, realm, componentModel) {
-            @Override
-            public String getUsername() {
-                return user.getUsername();
-            }
-
-            @Override
-            public String getEmail() {
-                return user.getEmail();
-            }
-
-            @Override
-            public String getFirstName() {
-                return user.getFirstName();
-            }
-
-            @Override
-            public String getLastName() {
-                return user.getLastName();
-            }
-        };
+        AbstractUserAdapterFederatedStorage adpt = new UserAdapter(this.keycloakSession, realm, this.componentModel, user);
 
         log.warn("# Adaptador creado: " + DtoUtil.convertToDto(adpt));
 
