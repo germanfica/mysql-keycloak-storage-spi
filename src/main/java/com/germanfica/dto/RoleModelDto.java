@@ -10,6 +10,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
+/**
+ * Disclaimer: This class is for testing and data representation only. I do not recommend using it in production.
+ * You can delete this class.
+ */
 @ToString
 @Value
 public class RoleModelDto {
