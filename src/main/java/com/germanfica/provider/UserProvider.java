@@ -101,13 +101,21 @@ public class UserProvider implements
         log.warn("id: " + id);
         log.warn("realm: " + realm);
         StorageId storageId = new StorageId(id);
-        String username = storageId.getExternalId();
+        String externalId = storageId.getExternalId();
 
 
         log.error("storageId: " + storageId);
-        log.error("username: " + username);
+        log.error("externalId: " + externalId);
 
-        return getUserByUsername(username, realm); //FIXME: Fix the get user by id. The user id is not the username. THIS IS PRETTY BAD
+        UserModel adapter = loadedUsers.get(id);
+        if (adapter == null) {
+            Optional<User> opt = userRepository.findById(Integer.parseInt(externalId)); //FIXED: Fix the get user by id. The user id is not the username
+            if (!opt.isEmpty()){
+                adapter = createAdapter(realm, opt.get());
+                loadedUsers.put(id, adapter);
+            }
+        }
+        return adapter;
     }
 
     @Override
