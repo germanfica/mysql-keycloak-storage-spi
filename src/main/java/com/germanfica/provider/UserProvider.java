@@ -35,6 +35,7 @@ import java.util.Optional;
 // https://www.keycloak.org/docs/latest/server_development/index.html#provider-interfaces
 @JBossLog
 public class UserProvider implements
+        //RoleLookupProvider,
         UserStorageProvider,
         UserLookupProvider,
         CredentialInputValidator {
