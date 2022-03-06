@@ -42,7 +42,7 @@ public class UserProvider implements
     private KeycloakSession keycloakSession;
     private ComponentModel componentModel;
     private UserRepository userRepository;
-    protected Map<String, UserModel> loadedUsers = new HashMap<>();
+    protected Map<String, UserModel> loadedUsers = new HashMap<>(); //TODO: I am not sure about this. This could perhaps lead to some memory overhead in the future
 
     // == constructors ==
     public UserProvider(KeycloakSession session, ComponentModel model,
