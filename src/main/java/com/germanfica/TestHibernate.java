@@ -2,6 +2,7 @@ package com.germanfica;
 
 import com.germanfica.entity.User;
 import com.germanfica.repository.UserRepositoryImpl;
+import com.germanfica.util.DtoUtils;
 import lombok.extern.jbosslog.JBossLog;
 import org.hibernate.HibernateException;
 
@@ -49,7 +50,7 @@ public class TestHibernate {
 		testEntity.setPassword("12345678");
 
 		//userRepository.save(testEntity);
-		//userRepository.findById(1);
+		log.info("#### USER ###: " + DtoUtils.convertTo(userRepository.findById(36).get().getRoles()));
 		//userRepository.delete(delUser);
 		//log.info(userRepository.findById(90).get().getFirstName());
 		//log.info("Id del username: "+userRepository.findByUsername("guillermina").get().getId());
