@@ -36,7 +36,7 @@ public class User  {
 	// == associations ==
 
 	// == privileges relationship ==
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER) //FIXED: Exception in thread "main" org.hibernate.AnnotationException: Use of @OneToMany or @ManyToMany targeting an unmapped class
 	@JoinTable(	name = "privileges",
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
