@@ -1,5 +1,6 @@
 package com.germanfica;
 
+import com.germanfica.entity.ERole;
 import com.germanfica.entity.User;
 import lombok.extern.jbosslog.JBossLog;
 import org.keycloak.common.util.MultivaluedHashMap;
@@ -17,6 +18,10 @@ import java.util.stream.Collectors;
 @JBossLog
 public class UserAdapter extends AbstractUserAdapterFederatedStorage {
     // == fields ==
+    public static String REALM_USER_ROLE = "realm-user";
+    public static String REALM_STUDENT_ROLE = "realm-student";
+    public static String REALM_TEACHER_ROLE = "realm-teacher";
+    public static String REALM_ADMIN_ROLE = "realm-admin";
     private final User user;
     private final String keycloakId;
 
@@ -107,14 +112,20 @@ public class UserAdapter extends AbstractUserAdapterFederatedStorage {
         Set<RoleModel> set = new HashSet<>(getFederatedRoleMappings());
         if (appendDefaultRolesToRoleMappings()) set.addAll(realm.getDefaultRole().getCompositesStream().collect(Collectors.toSet()));
 
-        RoleModel adminRole = session.roles().getRealmRole(realm, "realm-admin"); // it works
+        // check user roles and add them to role mappings
+        user.getRoles().forEach(role -> {
+            //if(role.getName()== ERole.ROLE_USER) set.add(session.roles().getRealmRole(realm, REALM_USER_ROLE)); // add the user realm role
+            if(role.getName()== ERole.ROLE_STUDENT) set.add(session.roles().getRealmRole(realm, REALM_STUDENT_ROLE)); // add the student realm role
+            if(role.getName()== ERole.ROLE_TEACHER) set.add(session.roles().getRealmRole(realm, REALM_TEACHER_ROLE)); // add the teacher realm role
+            if(role.getName()== ERole.ROLE_ADMIN) set.add(session.roles().getRealmRole(realm, REALM_ADMIN_ROLE)); // add the admin realm role
+        });
+
+        //RoleModel adminRole = session.roles().getRealmRole(realm, "realm-admin"); // it works
         //RoleModel teacherRole = session.roles().getRealmRole(realm, "realm-teacher"); // it works
         //RoleModel studentRole = session.roles().getRealmRole(realm, "realm-student"); // it works
         //log.warn("admin role: " + DtoUtils.convertToDto(adminRole));
         //log.warn("teacher role: " + DtoUtils.convertToDto(teacherRole));
         //log.warn("student role: " + DtoUtils.convertToDto(studentRole));
-
-        set.add(adminRole); // add the admin realm role
 
         set.addAll(getRoleMappingsInternal());
         return set;
