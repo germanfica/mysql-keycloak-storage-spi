@@ -3,6 +3,8 @@ package com.germanfica.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Setter(AccessLevel.PUBLIC)
 @Getter(AccessLevel.PUBLIC)
@@ -11,6 +13,7 @@ import javax.persistence.*;
 @Entity(name="User")
 @Table(name="user")
 public class User  {
+	// == fields ==
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -29,4 +32,13 @@ public class User  {
 
 	@Column(name="password")
 	private String password;
+
+	// == associations ==
+
+	// == privileges relationship ==
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(	name = "privileges",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
 }
