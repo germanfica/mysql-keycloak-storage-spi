@@ -3,12 +3,14 @@ package com.germanfica.util;
 import com.germanfica.dto.AbstractUserAdapterDto;
 import com.germanfica.dto.RoleModelDto;
 import com.germanfica.dto.UserDto;
+import com.germanfica.entity.Role;
 import com.germanfica.entity.User;
 import org.keycloak.models.RoleModel;
 import org.keycloak.storage.adapter.AbstractUserAdapter;
 import org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -80,5 +82,13 @@ public class DtoUtils {
                 roleModel.getId(),
                 roleModel.getName()
         );
+    }
+
+    public static final Set<String> convertTo(Set<Role> roles) {
+        Set<String> roleSet = new LinkedHashSet();
+
+        roles.forEach(role -> roleSet.add(role.getName().name()));
+
+        return roleSet;
     }
 }
