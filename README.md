@@ -50,6 +50,12 @@ Source:
 - https://stackoverflow.com/a/574650
 - https://stackoverflow.com/a/16222971
 
+## Send .jar in to a docker container
+
+``` bash
+docker cp user-storage-spi-0.0.1-SNAPSHOT-jar-with-dependencies.jar container_id:/opt/jboss/keycloak/standalone/deployments/user-storage-spi-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+```
+
 ## Configurations
 
 Create `src/main/resources/application.properties`
