@@ -53,7 +53,7 @@ Source:
 ## Send .jar in to a docker container
 
 ``` bash
-docker cp user-storage-spi-0.0.1-SNAPSHOT-jar-with-dependencies.jar container_id:/opt/jboss/keycloak/standalone/deployments/user-storage-spi-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+docker cp target/user-storage-spi-0.0.1-SNAPSHOT-jar-with-dependencies.jar container_id:/opt/jboss/keycloak/standalone/deployments/user-storage-spi-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 ## Configurations
