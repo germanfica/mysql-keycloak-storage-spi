@@ -91,8 +91,11 @@ Create `src/main/resources/hibernate.cfg.xml`
         <property name="hibernate.c3p0.initialPoolSize">5</property>
 
         <!-- List all the mapping documents we're using -->
-        <mapping resource="example01/Teacher.hbm.xml"/>
-        <mapping class="example01.Teacher"/>
+        <!-- <mapping resource="example01/Teacher.hbm.xml"/> -->
+        <!-- <mapping class="example01.Teacher"/> -->
+        <mapping class="com.germanfica.entity.ERole"/>
+        <mapping class="com.germanfica.entity.Role"/>
+        <mapping class="com.germanfica.entity.User"/>
     </session-factory>
 </hibernate-configuration>
 ```
