@@ -92,6 +92,8 @@ Create `src/main/resources/hibernate.cfg.xml`
 </hibernate-configuration>
 ```
 
+__Note for Docker users:__ Containers can be addressed by their _name_ or _alias_. __As long as they are on the same network__. Instead of x.x.x.x put the container name. Your can find more information here: https://www.tutorialworks.com/container-networking/ 
+
 ## Maven dependencies
 
 Apache Maven Compiler Plugin
