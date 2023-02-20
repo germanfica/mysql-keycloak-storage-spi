@@ -79,7 +79,7 @@ Create `src/main/resources/hibernate.cfg.xml`
         <property name="connection.username">hibernate1</property>
         <property name="connection.password">hibernate1</property>
         <!-- SQL dialect -->
-        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <!-- Hibernate settings -->
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.c3p0.min_size">5</property>
@@ -87,13 +87,13 @@ Create `src/main/resources/hibernate.cfg.xml`
         <property name="hibernate.c3p0.timeout">1800</property>
         <property name="hibernate.c3p0.max_statements">50</property>
         <property name="hibernate.c3p0.acquire_increment">3</property>
-        <property name="hibernate.c3p0.idle_test_period">1</property>
-        <property name="hibernate.c3p0.initialPoolSize">5</property>
+        <property name="hibernate.c3p0.idle_test_period">3000</property>
+        <!-- <property name="hibernate.c3p0.initialPoolSize">5</property> -->
+        <property name="hibernate.c3p0.validate">true</property>
 
         <!-- List all the mapping documents we're using -->
         <!-- <mapping resource="example01/Teacher.hbm.xml"/> -->
         <!-- <mapping class="example01.Teacher"/> -->
-        <mapping class="com.germanfica.entity.ERole"/>
         <mapping class="com.germanfica.entity.Role"/>
         <mapping class="com.germanfica.entity.User"/>
     </session-factory>
