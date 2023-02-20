@@ -53,7 +53,7 @@ Source:
 ## Send .jar in to a docker container
 
 ``` bash
-docker cp user-storage-spi-0.0.1-SNAPSHOT-jar-with-dependencies.jar container_id:/opt/jboss/keycloak/standalone/deployments/user-storage-spi-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+docker cp target/user-storage-spi-0.0.1-SNAPSHOT-jar-with-dependencies.jar container_id:/opt/jboss/keycloak/standalone/deployments/user-storage-spi-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 ## Configurations
@@ -73,11 +73,14 @@ Create `src/main/resources/hibernate.cfg.xml`
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
+        <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql://localhost/hibernate1</property>
         <property name="connection.username">hibernate1</property>
         <property name="connection.password">hibernate1</property>
+        <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <!-- Hibernate settings -->
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.c3p0.min_size">5</property>
         <property name="hibernate.c3p0.max_size">20</property>
@@ -87,8 +90,12 @@ Create `src/main/resources/hibernate.cfg.xml`
         <property name="hibernate.c3p0.idle_test_period">1</property>
         <property name="hibernate.c3p0.initialPoolSize">5</property>
 
-        <mapping resource="example01/Teacher.hbm.xml"/>
-        <mapping class="example01.Teacher"/>
+        <!-- List all the mapping documents we're using -->
+        <!-- <mapping resource="example01/Teacher.hbm.xml"/> -->
+        <!-- <mapping class="example01.Teacher"/> -->
+        <mapping class="com.germanfica.entity.ERole"/>
+        <mapping class="com.germanfica.entity.Role"/>
+        <mapping class="com.germanfica.entity.User"/>
     </session-factory>
 </hibernate-configuration>
 ```
