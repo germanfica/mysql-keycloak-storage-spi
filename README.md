@@ -58,14 +58,6 @@ docker cp target/user-storage-spi-0.0.1-SNAPSHOT-jar-with-dependencies.jar conta
 
 ## Configurations
 
-Create `src/main/resources/application.properties`
-
-```xml
-datasource.username = your_username
-datasource.password = your_password
-datasource.url = jdbc:mysql://x.x.x.x:3306/your_db_name?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull
-```
-
 Create `src/main/resources/hibernate.cfg.xml`
 
 ```xml
@@ -75,7 +67,7 @@ Create `src/main/resources/hibernate.cfg.xml`
     <session-factory>
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://YOUR_DB_IP_ADDRESS:3306/YOUR_DB_NAME</property>
+        <property name="connection.url">jdbc:mysql://x.x.x.x:3306/YOUR_DB_NAME</property>
         <property name="connection.username">YOUR_DB_USERNAME</property>
         <property name="connection.password">YOUR_DB_PASSWORD</property>
         <!-- SQL dialect -->
