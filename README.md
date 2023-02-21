@@ -58,14 +58,6 @@ docker cp target/user-storage-spi-0.0.1-SNAPSHOT-jar-with-dependencies.jar conta
 
 ## Configurations
 
-Create `src/main/resources/application.properties`
-
-```xml
-datasource.username = your_username
-datasource.password = your_password
-datasource.url = jdbc:mysql://x.x.x.x:3306/your_db_name?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull
-```
-
 Create `src/main/resources/hibernate.cfg.xml`
 
 ```xml
@@ -75,11 +67,11 @@ Create `src/main/resources/hibernate.cfg.xml`
     <session-factory>
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost/hibernate1</property>
-        <property name="connection.username">hibernate1</property>
-        <property name="connection.password">hibernate1</property>
+        <property name="connection.url">jdbc:mysql://x.x.x.x:3306/YOUR_DB_NAME</property>
+        <property name="connection.username">YOUR_DB_USERNAME</property>
+        <property name="connection.password">YOUR_DB_PASSWORD</property>
         <!-- SQL dialect -->
-        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <!-- Hibernate settings -->
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.c3p0.min_size">5</property>
@@ -87,18 +79,20 @@ Create `src/main/resources/hibernate.cfg.xml`
         <property name="hibernate.c3p0.timeout">1800</property>
         <property name="hibernate.c3p0.max_statements">50</property>
         <property name="hibernate.c3p0.acquire_increment">3</property>
-        <property name="hibernate.c3p0.idle_test_period">1</property>
-        <property name="hibernate.c3p0.initialPoolSize">5</property>
+        <property name="hibernate.c3p0.idle_test_period">3000</property>
+        <!-- <property name="hibernate.c3p0.initialPoolSize">5</property> -->
+        <property name="hibernate.c3p0.validate">true</property>
 
         <!-- List all the mapping documents we're using -->
         <!-- <mapping resource="example01/Teacher.hbm.xml"/> -->
         <!-- <mapping class="example01.Teacher"/> -->
-        <mapping class="com.germanfica.entity.ERole"/>
         <mapping class="com.germanfica.entity.Role"/>
         <mapping class="com.germanfica.entity.User"/>
     </session-factory>
 </hibernate-configuration>
 ```
+
+__Note for Docker users:__ Containers can be addressed by their _name_ or _alias_. __As long as they are on the same network__. Instead of x.x.x.x put the container name. Your can find more information here: https://www.tutorialworks.com/container-networking/ 
 
 ## Maven dependencies
 
